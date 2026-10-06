@@ -1,0 +1,151 @@
+        <section id="settingsView" class="page-view hidden">
+          <header class="topbar">
+            <div>
+              <h1>设置</h1>
+              <p>frpc 程序、配置文件与版本更新</p>
+            </div>
+          </header>
+
+          <div class="card hidden" id="accountCard">
+            <h3>账户</h3>
+            <p class="muted">用户 ID（登录账号）：<strong id="settingsUid" class="mono">-</strong></p>
+            <p class="muted">用户名（仅展示）：<strong id="settingsUsername">-</strong></p>
+            <div class="process-actions" style="margin-top:12px; flex-wrap:wrap; gap:8px;">
+              <button id="changePasswordButton" class="button">
+                <i data-lucide="key-round" class="icon"></i>
+                修改密码
+              </button>
+              <button id="changeUidButton" class="button secondary">
+                <i data-lucide="id-card" class="icon"></i>
+                修改用户 ID
+              </button>
+              <button id="changeUsernameButton" class="button secondary">
+                <i data-lucide="user-pen" class="icon"></i>
+                修改用户名
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>版本与更新</h3>
+            <p class="muted">当前版本：<strong id="settingsCurrentVersion">-</strong></p>
+            <div id="settingsUpdateBanner" class="connection-banner hidden" style="border-left-color: var(--warning); margin-top: 10px;">
+              <div>
+                <strong>发现新版本</strong>
+                <span id="settingsUpdateText"></span>
+              </div>
+              <div class="process-actions">
+                <button id="applySettingsUpdateButton" class="button">
+                  <i data-lucide="download-cloud" class="icon"></i>
+                  在线更新
+                </button>
+              </div>
+            </div>
+            <details id="settingsUpdateChangelogWrap" class="hidden" style="margin-top:8px;">
+              <summary>更新日志</summary>
+              <pre id="settingsUpdateChangelog" class="config-textarea" style="white-space:pre-wrap; max-height:220px; overflow:auto;"></pre>
+            </details>
+            <p id="updateCheckMessage" class="muted" role="status"></p>
+            <div class="process-actions" style="margin-top:12px; flex-wrap:wrap; gap:8px;">
+              <button id="checkUpdateButton" class="button">
+                <i data-lucide="refresh-cw" class="icon"></i>
+                检测版本更新
+              </button>
+            </div>
+          </div>
+
+          <div class="card hidden" id="frpcLockPanel">
+            <h3>frpc 本机锁</h3>
+            <p class="muted">
+              未登录时修改 frpc 配置或启停 frpc 需先解锁。锁密码由部署方设置（默认
+              xfcloud@123），可通过环境变量 CLIENT_FRPC_PASSWORD 自定义。
+            </p>
+            <div id="frpcLockLockedArea">
+              <div class="field">
+                <label for="frpcLockPassword">锁密码</label>
+                <input
+                  id="frpcLockPassword"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="输入锁密码解锁 frpc 管理"
+                />
+              </div>
+              <p id="frpcLockMessage" class="error-text" role="alert"></p>
+              <div class="process-actions" style="margin-top:12px; flex-wrap:wrap; gap:8px;">
+                <button id="frpcUnlockButton" class="button">
+                  <i data-lucide="unlock" class="icon"></i>
+                  解锁
+                </button>
+              </div>
+            </div>
+            <div id="frpcLockUnlockedArea" class="hidden">
+              <p class="muted">状态：<strong>已解锁</strong>（12 小时内本浏览器可管理 frpc）</p>
+              <div class="process-actions" style="margin-top:12px; flex-wrap:wrap; gap:8px;">
+                <button id="frpcRelockButton" class="button secondary">
+                  <i data-lucide="lock" class="icon"></i>
+                  重新锁定
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="frpcConfigCard">
+            <h3>frpc 配置文件</h3>
+            <p class="muted">
+              未连接服务端时，可自行填写 frpc 配置（TOML 格式）并直接启动本机 frpc；
+              保存后将写入运行目录的 frpc.toml。连接服务端后配置由服务端自动生成，此卡片不再显示。
+            </p>
+            <div class="field">
+              <label for="frpcConfigText">配置内容（frpc.toml）</label>
+              <textarea
+                id="frpcConfigText"
+                class="config-textarea"
+                rows="12"
+                spellcheck="false"
+                placeholder="serverAddr = &quot;frp.example.com&quot;&#10;serverPort = 7000&#10;&#10;[[proxies]]&#10;name = &quot;ssh&quot;&#10;type = &quot;tcp&quot;&#10;localIP = &quot;127.0.0.1&quot;&#10;localPort = 22&#10;remotePort = 6000"
+              ></textarea>
+            </div>
+            <p id="frpcConfigMessage" class="error-text" role="alert"></p>
+            <div class="process-actions" style="margin-top:12px; flex-wrap:wrap; gap:8px;">
+              <button id="saveFrpcConfigButton" class="button">
+                <i data-lucide="save" class="icon"></i>
+                保存配置
+              </button>
+              <button id="startCustomFrpcButton" class="button secondary">
+                <i data-lucide="play" class="icon"></i>
+                启动 frpc
+              </button>
+              <button id="stopCustomFrpcButton" class="button secondary">
+                <i data-lucide="square" class="icon"></i>
+                停止 frpc
+              </button>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              运行状态：<strong id="frpcConfigState">检测中...</strong>
+              「启动 frpc」会自动保存当前配置内容后启动。
+            </p>
+            <details id="frpcConfigLogsWrap" class="hidden" style="margin-top:10px;">
+              <summary>frpc 运行日志</summary>
+              <pre id="frpcConfigLogs" class="config-textarea" style="white-space:pre-wrap; max-height:220px; overflow:auto;"></pre>
+            </details>
+          </div>
+
+          <div class="card">
+            <h3>frpc 运行文件</h3>
+            <p class="muted">当前 frpc：<span id="frpcCurrentStatus">检测中...</span></p>
+            <p class="muted">版本：<span id="frpcCurrentVersion">-</span></p>
+            <p class="muted">路径：<code id="frpcBinaryPath">-</code></p>
+            <div class="process-actions" style="margin-top:12px; flex-wrap:wrap; gap:8px;">
+              <button id="pullFrpcButton" class="button">
+                <i data-lucide="download-cloud" class="icon"></i>
+                从服务端拉取
+              </button>
+              <button id="uploadFrpcButton" class="button secondary">
+                <i data-lucide="upload" class="icon"></i>
+                手动上传
+              </button>
+              <input id="frpcFileInput" type="file" hidden />
+            </div>
+            <p id="frpcMessage" class="error-text" role="alert"></p>
+          </div>
+        </section>

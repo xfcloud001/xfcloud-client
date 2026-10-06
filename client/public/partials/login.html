@@ -1,0 +1,244 @@
+    <section id="loginView" class="login-shell">
+      <div class="login-brand">
+        <div class="brand-mark">
+          <span class="brand-symbol"><i data-lucide="waypoints"></i></span>
+          <span class="brand-name">XFCloud Tunnel</span>
+        </div>
+        <div>
+          <h1>连接你的内网服务</h1>
+          <p>使用服务端分配的账户与端口建立安全映射。</p>
+        </div>
+        <!-- 0.9.9：公开服务端信息并入左侧品牌栏（数据来自授权中心，已激活服务端自动公开；点击卡片自动填入 IP） -->
+        <aside id="serverDirectory" class="login-servers hidden" aria-label="服务器列表">
+          <div class="login-servers-inner">
+            <div class="login-servers-head">
+              <div>
+                <h2>服务器列表</h2>
+                <p class="login-servers-sub">点击卡片自动填入服务器地址</p>
+              </div>
+              <span id="serverDirectoryTotal" class="badge">共 0 台</span>
+            </div>
+            <div id="serverDirectoryGrid" class="server-grid"></div>
+            <div id="serverDirectoryPager" class="server-pager hidden">
+              <button id="serversPrevBtn" class="page-btn" type="button" aria-label="上一页">
+                <i data-lucide="chevron-left" class="icon"></i>
+              </button>
+              <span id="serversPageInfo" class="pager-info"></span>
+              <button id="serversNextBtn" class="page-btn" type="button" aria-label="下一页">
+                <i data-lucide="chevron-right" class="icon"></i>
+              </button>
+            </div>
+            <p id="serverDirectoryHint" class="server-directory-hint hidden"></p>
+          </div>
+        </aside>
+      </div>
+      <div class="login-panel">
+        <div class="login-topbar">
+          <button id="backToAppBtn" class="button ghost back-console-btn" type="button">
+            <i data-lucide="arrow-left" class="icon"></i>
+            返回控制台
+          </button>
+        </div>
+        <form id="connectForm" class="login-form">
+          <h2>连接服务器</h2>
+          <p>登录客户端控制台</p>
+          <div class="field">
+            <label for="serverAddress">集群 ID / 主节点 IP 或域名</label>
+            <input
+              id="serverAddress"
+              name="serverAddress"
+              type="text"
+              placeholder="例如 a3k9m2 或 frp.example.com"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <small>支持集群 ID、主节点 IP 或域名；用集群 ID 登录后主节点切换自动跟随</small>
+          </div>
+          <div class="field">
+            <label for="username">用户 ID / 邮箱</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="6 位数字 ID 或注册邮箱"
+              autocomplete="username"
+              spellcheck="false"
+              required
+            />
+            <small>支持 6 位数字用户 ID 或注册邮箱登录</small>
+          </div>
+          <div class="field">
+            <label for="password">密码</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <p id="connectError" class="error-text" role="alert"></p>
+          <button class="button" type="submit">
+            <i data-lucide="plug-zap" class="icon"></i>
+            登录并连接
+          </button>
+          <div id="loginLinksRow" class="login-links hidden">
+            <button type="button" id="gotoRegisterBtn" class="login-link">注册账号</button>
+            <span class="login-link-sep" aria-hidden="true">·</span>
+            <button type="button" id="gotoForgotBtn" class="login-link">忘记密码</button>
+          </div>
+        </form>
+
+        <form id="registerForm" class="login-form hidden">
+          <h2>注册账号</h2>
+          <p id="registerServerHint">注册后将获得用户 ID，使用套餐码即可开通端口</p>
+          <div class="field">
+            <label for="registerServerAddress">集群 ID / 主节点 IP 或域名</label>
+            <input
+              id="registerServerAddress"
+              type="text"
+              placeholder="例如 a3k9m2 或 frp.example.com"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <small>注册由该服务端（集群场景下由其主节点）提供</small>
+          </div>
+          <div class="field">
+            <label for="registerEmail">绑定邮箱</label>
+            <input id="registerEmail" type="email" placeholder="name@example.com" autocomplete="email" required />
+            <small>每个邮箱只能注册一个 ID；注册后可用邮箱或 ID 登录</small>
+          </div>
+          <div class="field">
+            <label for="registerCode">邮箱验证码</label>
+            <div class="captcha-row">
+              <input id="registerCode" class="captcha-input wide" maxlength="6" inputmode="numeric" placeholder="6 位数字" autocomplete="one-time-code" required />
+              <button id="registerSendCodeBtn" class="button secondary" type="button">发送验证码</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="registerUsername">昵称（选填）</label>
+            <input id="registerUsername" type="text" maxlength="32" placeholder="仅用于展示" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="registerPassword">设置密码</label>
+            <input id="registerPassword" type="password" minlength="8" autocomplete="new-password" required />
+            <small>至少 8 位字符</small>
+          </div>
+          <div class="field">
+            <label for="registerPasswordConfirm">确认密码</label>
+            <input id="registerPasswordConfirm" type="password" minlength="8" autocomplete="new-password" required />
+          </div>
+          <p id="registerError" class="error-text" role="alert"></p>
+          <button class="button" type="submit">
+            <i data-lucide="user-plus" class="icon"></i>
+            注册
+          </button>
+          <div class="login-links">
+            <button type="button" id="registerBackBtn" class="login-link">返回登录</button>
+          </div>
+        </form>
+
+        <form id="forgotForm" class="login-form hidden">
+          <h2>忘记密码</h2>
+          <p>仅支持通过注册邮箱找回密码</p>
+          <div class="field">
+            <label for="forgotServerAddress">集群 ID / 主节点 IP 或域名</label>
+            <input
+              id="forgotServerAddress"
+              type="text"
+              placeholder="例如 a3k9m2 或 frp.example.com"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="forgotEmail">注册邮箱</label>
+            <input id="forgotEmail" type="email" placeholder="name@example.com" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="forgotCode">邮箱验证码</label>
+            <div class="captcha-row">
+              <input id="forgotCode" class="captcha-input wide" maxlength="6" inputmode="numeric" placeholder="6 位数字" autocomplete="one-time-code" required />
+              <button id="forgotSendCodeBtn" class="button secondary" type="button">发送验证码</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="forgotNewPassword">新密码</label>
+            <input id="forgotNewPassword" type="password" minlength="8" autocomplete="new-password" required />
+            <small>至少 8 位字符</small>
+          </div>
+          <div class="field">
+            <label for="forgotNewPasswordConfirm">确认新密码</label>
+            <input id="forgotNewPasswordConfirm" type="password" minlength="8" autocomplete="new-password" required />
+          </div>
+          <p id="forgotError" class="error-text" role="alert"></p>
+          <button class="button" type="submit">
+            <i data-lucide="key-round" class="icon"></i>
+            重置密码
+          </button>
+          <div class="login-links">
+            <button type="button" id="forgotBackBtn" class="login-link">返回登录</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 0.10.0.1：滑动验证码弹窗（发送邮箱验证码前的人机验证） -->
+      <dialog id="sliderCaptchaDialog" class="form-dialog">
+        <div class="form-dialog-body">
+          <h3>安全验证</h3>
+          <p class="muted">拖动下方滑块，将拼图块移到缺口位置</p>
+          <div id="sliderStage" class="slider-stage">
+            <div id="sliderBgWrap" class="slider-bg">加载中...</div>
+            <div id="sliderPiece" class="slider-piece hidden"></div>
+          </div>
+          <div id="sliderTrack" class="slider-track">
+            <div id="sliderProgress" class="slider-progress"></div>
+            <span id="sliderTrackHint" class="slider-track-hint">按住滑块拖动</span>
+            <button id="sliderHandle" class="slider-handle" type="button" aria-label="拖动滑块">
+              <i data-lucide="chevrons-right" class="icon"></i>
+            </button>
+          </div>
+          <p id="sliderError" class="error-text" role="alert"></p>
+          <div class="dialog-actions">
+            <button type="button" id="sliderCancelBtn" class="button ghost">取消</button>
+            <button type="button" id="sliderRefreshBtn" class="button secondary">换一张</button>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- 0.10.0.1：图形验证码弹窗（注册/重置密码提交前的二次验证） -->
+      <dialog id="imageCaptchaDialog" class="form-dialog">
+        <div class="form-dialog-body">
+          <h3>安全验证</h3>
+          <div class="field">
+            <label for="dialogCaptchaAnswer">图形验证码</label>
+            <div class="captcha-row">
+              <span id="dialogCaptchaBox" class="captcha-box" title="点击刷新">加载中...</span>
+              <input id="dialogCaptchaAnswer" class="captcha-input" maxlength="4" placeholder="输入结果" autocomplete="off" />
+              <button id="dialogCaptchaRefresh" class="button ghost icon-only" type="button" title="换一张">
+                <i data-lucide="refresh-cw" class="icon"></i>
+              </button>
+            </div>
+          </div>
+          <p id="dialogCaptchaError" class="error-text" role="alert"></p>
+          <div class="dialog-actions">
+            <button type="button" id="dialogCaptchaCancelBtn" class="button ghost">取消</button>
+            <button type="button" id="dialogCaptchaConfirmBtn" class="button">确认</button>
+          </div>
+        </div>
+      </dialog>
+
+      <footer class="record-footer login-record">
+        <span><a class="footer-brand">XFCloud Tunnel</a></span>
+        <span class="record-sep" aria-hidden="true">·</span>
+        <a data-icp-link href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hidden">
+          备案信息筹备中
+        </a>
+        <a data-police-link href="https://beian.mps.gov.cn/" target="_blank" rel="noopener noreferrer" class="hidden">
+          公安备案筹备中
+        </a>
+      </footer>
+    </section>

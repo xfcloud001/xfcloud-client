@@ -1,0 +1,54 @@
+        <section id="messagesView" class="page-view hidden">
+          <header class="topbar">
+            <div>
+              <h1>信息中心</h1>
+              <p>服务端公告与本地运行提醒</p>
+            </div>
+          </header>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>服务端公告</h2>
+                <p>管理员发布的公告，打开客户端时未读公告会自动弹出</p>
+              </div>
+              <span id="noticeListMeta" class="stat-meta"></span>
+            </div>
+            <div id="noticeList" class="message-list">
+              <p class="empty">暂无公告</p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>本地运行提醒</h2>
+                <p>frpc 报错、意外退出、启动失败等事件的自动提醒（保留最近 50 条）</p>
+              </div>
+              <span id="runtimeMessageMeta" class="stat-meta"></span>
+            </div>
+            <div id="runtimeMessageList" class="message-list">
+              <p class="empty">暂无运行提醒</p>
+            </div>
+          </section>
+        </section>
+
+        <!-- 0.10.2.8：未读公告弹窗——客户端打开后自动弹出一次，可稍后再看或一键已读 -->
+        <dialog id="noticeDialog">
+          <header class="modal-head">
+            <h2>新公告</h2>
+            <button class="button ghost icon-only" type="button" data-close-dialog title="关闭">
+              <i data-lucide="x" class="icon"></i>
+            </button>
+          </header>
+          <div class="modal-body">
+            <div id="noticeDialogList" class="message-list"></div>
+            <div class="modal-actions">
+              <button class="button secondary" type="button" data-close-dialog>稍后再看</button>
+              <button id="noticeDialogReadAll" class="button" type="button">
+                <i data-lucide="check-check" class="icon"></i>
+                全部标记已读
+              </button>
+            </div>
+          </div>
+        </dialog>

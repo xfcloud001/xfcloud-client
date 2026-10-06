@@ -1,0 +1,88 @@
+    <dialog id="accountDialog">
+      <header class="modal-head">
+        <h2 id="accountDialogTitle">修改密码</h2>
+        <button class="button ghost icon-only" type="button" data-close-dialog title="关闭">
+          <i data-lucide="x" class="icon"></i>
+        </button>
+      </header>
+      <div class="modal-body">
+        <form id="accountPasswordForm" class="account-form">
+          <div class="form-grid">
+            <div class="field wide">
+              <label for="acctPwdCurrent">当前密码</label>
+              <input id="acctPwdCurrent" type="password" autocomplete="current-password" required />
+            </div>
+            <div class="field wide">
+              <label for="acctPwdNew">新密码</label>
+              <input id="acctPwdNew" type="password" autocomplete="new-password" minlength="8" required />
+            </div>
+            <div class="field wide">
+              <label for="acctPwdConfirm">确认新密码</label>
+              <input id="acctPwdConfirm" type="password" autocomplete="new-password" minlength="8" required />
+            </div>
+          </div>
+          <p id="acctPwdError" class="error-text" role="alert"></p>
+          <div class="modal-actions">
+            <button class="button secondary" type="button" data-close-dialog>取消</button>
+            <button class="button" type="submit">
+              <i data-lucide="save" class="icon"></i>
+              修改密码
+            </button>
+          </div>
+        </form>
+
+        <form id="accountUsernameForm" class="account-form hidden">
+          <div class="form-grid">
+            <div class="field wide">
+              <label for="acctUserCurrent">当前密码</label>
+              <input id="acctUserCurrent" type="password" autocomplete="current-password" required />
+            </div>
+            <div class="field wide">
+              <label for="acctUserNew">新用户名</label>
+              <input id="acctUserNew" type="text" autocomplete="off" spellcheck="false" required />
+            </div>
+          </div>
+          <p class="field-hint">用户名仅用于展示，可与他人重复，不影响登录。</p>
+          <p id="acctUserError" class="error-text" role="alert"></p>
+          <div class="modal-actions">
+            <button class="button secondary" type="button" data-close-dialog>取消</button>
+            <button class="button" type="submit">
+              <i data-lucide="save" class="icon"></i>
+              修改用户名
+            </button>
+          </div>
+        </form>
+
+        <form id="accountUidForm" class="account-form hidden">
+          <div class="form-grid">
+            <div class="field wide">
+              <label for="acctUidCurrent">当前密码</label>
+              <input id="acctUidCurrent" type="password" autocomplete="current-password" required />
+            </div>
+            <div class="field wide">
+              <label for="acctUidNew">新用户 ID</label>
+              <input
+                id="acctUidNew"
+                type="text"
+                inputmode="numeric"
+                pattern="\d{6}"
+                maxlength="6"
+                placeholder="6 位数字"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+            </div>
+          </div>
+          <p class="field-hint">用户 ID 为 6 位数字、全局唯一，是登录与隧道归属的唯一标识；修改后需用新 ID 重新登录，frpc 会自动重启。</p>
+          <p id="acctUidError" class="error-text" role="alert"></p>
+          <div class="modal-actions">
+            <button class="button secondary" type="button" data-close-dialog>取消</button>
+            <button class="button" type="submit">
+              <i data-lucide="save" class="icon"></i>
+              修改用户 ID
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>

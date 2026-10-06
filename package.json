@@ -1,0 +1,21 @@
+{
+  "name": "xfcloud-client",
+  "version": "0.10.2.9",
+  "description": "XFCloud Tunnel 客户端 —— 连接服务端一键建立 frp 隧道：Web 控制台、端口映射可视化编辑、配置 AES-256-GCM 加密落盘。",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "homepage": "https://www.xfhub.top",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xfcloud001/xfcloud-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xfcloud001/xfcloud-client/issues"
+  },
+  "scripts": {
+    "start": "node --experimental-sqlite client/app.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

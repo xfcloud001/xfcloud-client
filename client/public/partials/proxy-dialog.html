@@ -1,0 +1,124 @@
+    <dialog id="proxyDialog">
+      <form id="proxyForm">
+        <header class="modal-head">
+          <h2 id="proxyDialogTitle">新建映射</h2>
+          <button class="button ghost icon-only" type="button" data-close-dialog title="关闭">
+            <i data-lucide="x" class="icon"></i>
+          </button>
+        </header>
+        <div class="modal-body">
+          <input id="proxyId" type="hidden" />
+          <input id="proxyNode" type="hidden" />
+          <!-- 0.10.1.2 规格2：排版精简——两列紧凑布局，本地 IP:端口 合并一行 -->
+          <div class="form-grid">
+            <div class="field" id="proxyNodeField">
+              <label>承载节点</label>
+              <strong id="proxyNodeName" class="node-name-static">主节点</strong>
+            </div>
+            <div class="field">
+              <label for="proxyName">名称</label>
+              <input id="proxyName" placeholder="ssh" maxlength="32" required />
+            </div>
+            <div class="field">
+              <label for="proxyType">协议</label>
+              <select id="proxyType">
+                <option value="tcp">TCP</option>
+                <option value="udp">UDP</option>
+                <option value="http">HTTP（域名）</option>
+                <option value="https">HTTPS（域名）</option>
+              </select>
+              <p class="field-hint hidden" id="proxyTypeHint">HTTP/HTTPS 域名隧道需管理员授权后可用。</p>
+            </div>
+            <div class="field">
+              <label for="proxyEnabled">状态</label>
+              <label class="check-row">
+                <input id="proxyEnabled" type="checkbox" checked />
+                启用该映射
+              </label>
+            </div>
+            <div class="field wide">
+              <label>本地服务（IP : 端口）</label>
+              <div class="local-service-row">
+                <input id="localIP" value="127.0.0.1" required aria-label="本地地址" />
+                <span class="local-service-sep">:</span>
+                <input id="localPort" type="number" min="1" max="65535" required aria-label="本地端口" />
+              </div>
+            </div>
+            <div class="field wide" id="remotePortField">
+              <label for="remotePort">远程端口</label>
+              <div class="port-input-row">
+                <input
+                  id="remotePort"
+                  type="number"
+                  min="1"
+                  max="65535"
+                  list="remotePortOptions"
+                  placeholder="自定义端口"
+                  required
+                />
+                <select id="remotePortPick" title="从可用端口中选择">
+                  <option value="">可用端口 ▾</option>
+                </select>
+              </div>
+              <datalist id="remotePortOptions"></datalist>
+              <div id="portSuggestions" class="port-suggestions"></div>
+            </div>
+            <div class="field wide hidden" id="domainsField">
+              <label for="proxyDomains">域名</label>
+              <input
+                id="proxyDomains"
+                placeholder="a.example.com, b.example.com"
+                autocomplete="off"
+              />
+              <p class="field-hint">HTTP/HTTPS 通过域名访问（不占用远程端口），多个域名用逗号分隔。</p>
+            </div>
+          </div>
+          <p id="proxyFormError" class="error-text" role="alert"></p>
+          <div class="modal-actions">
+            <button class="button secondary" type="button" data-close-dialog>取消</button>
+            <button class="button" type="submit">
+              <i data-lucide="save" class="icon"></i>
+              保存并应用
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- 0.10.1.1：使用套餐码弹窗（入口在仪表盘「续费」旁） -->
+    <dialog id="redeemDialog">
+      <form id="redeemForm">
+        <header class="modal-head">
+          <h2>使用套餐码</h2>
+          <button class="button ghost icon-only" type="button" data-close-dialog title="关闭">
+            <i data-lucide="x" class="icon"></i>
+          </button>
+        </header>
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="field wide">
+              <label for="redeemCode">套餐码</label>
+              <input
+                id="redeemCode"
+                class="mono redeem-input"
+                maxlength="16"
+                placeholder="请输入 16 位套餐码"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+              <p class="field-hint">输入管理员提供的 16 位套餐码，自动绑定对应套餐（时长 + 端口 + 流量），兑换后隧道自动重启生效。</p>
+            </div>
+          </div>
+          <p id="redeemError" class="error-text" role="alert"></p>
+          <p id="redeemMsg" class="form-msg" role="status"></p>
+          <div class="modal-actions">
+            <button class="button secondary" type="button" data-close-dialog>取消</button>
+            <button id="redeemSubmit" class="button" type="submit">
+              <i data-lucide="ticket-check" class="icon"></i>
+              兑换
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>

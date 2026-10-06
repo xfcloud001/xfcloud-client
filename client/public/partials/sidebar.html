@@ -1,0 +1,43 @@
+      <aside class="sidebar">
+        <div class="brand-mark">
+          <span class="brand-symbol"><i data-lucide="waypoints"></i></span>
+          <span class="brand-name">XFCloud Tunnel</span>
+        </div>
+        <nav class="nav" aria-label="主导航">
+          <!-- 0.10.1.1：原「端口映射」改名「仪表盘」；映射列表移入新「端口映射」菜单（按节点分块） -->
+          <button class="nav-button active" data-view="tunnels" data-connect-only>
+            <i data-lucide="layout-dashboard" class="icon"></i>
+            仪表盘
+          </button>
+          <!-- 0.10.2.8：信息中心（公告+运行提醒）——未读徽标，查看后消失 -->
+          <button class="nav-button" data-view="messages">
+            <i data-lucide="bell" class="icon"></i>
+            信息
+            <span id="messagesNavBadge" class="nav-badge hidden"></span>
+          </button>
+          <button class="nav-button" data-view="mapping" data-connect-only>
+            <i data-lucide="network" class="icon"></i>
+            端口映射
+          </button>
+          <button class="nav-button" data-view="logs">
+            <i data-lucide="scroll-text" class="icon"></i>
+            运行日志
+          </button>
+          <button class="nav-button" data-view="settings">
+            <i data-lucide="settings" class="icon"></i>
+            设置
+          </button>
+        </nav>
+        <button id="openConnectBtn" class="connect-cta" type="button">
+          <i data-lucide="plug-zap" class="icon"></i>
+          连接服务端
+        </button>
+        <div class="sidebar-footer">
+          <div class="sidebar-account">
+            <strong id="accountName">-</strong>
+            <span id="accountUid" class="mono"></span>
+            <span id="serverName">-</span>
+            <span id="clientVersion"></span>
+          </div>
+        </div>
+      </aside>

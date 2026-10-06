@@ -1,0 +1,15 @@
+        <section id="logsView" class="page-view hidden">
+          <header class="topbar">
+            <div>
+              <h1>运行日志</h1>
+              <p>frpc 最近输出</p>
+            </div>
+            <button id="refreshButton" class="button secondary">
+              <i data-lucide="refresh-cw" class="icon"></i>
+              刷新
+            </button>
+          </header>
+          <!-- 0.10.1.1：多节点并发映射时每个 frpc 进程一个日志页 -->
+          <div id="frpcLogTabs" class="log-tabs hidden"></div>
+          <pre id="frpcLogs" class="log-view">暂无日志</pre>
+        </section>

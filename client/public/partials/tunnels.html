@@ -1,0 +1,157 @@
+        <section id="tunnelsView" class="page-view">
+          <header class="topbar">
+            <div>
+              <h1>仪表盘</h1>
+              <p>节点、端口、流量与隧道总览</p>
+            </div>
+            <div class="topbar-actions">
+              <button id="renewButton" class="button">
+                <i data-lucide="external-link" class="icon"></i>
+                续费
+              </button>
+              <!-- 0.10.1.1：使用套餐码移到「续费」旁，点击弹出兑换弹窗 -->
+              <button id="openRedeemButton" class="button secondary">
+                <i data-lucide="ticket-check" class="icon"></i>
+                使用套餐码
+              </button>
+              <button id="logoutButton" class="button secondary">
+                <i data-lucide="log-out" class="icon"></i>
+                退出
+              </button>
+            </div>
+          </header>
+
+          <div id="updateBanner" class="connection-banner hidden" style="border-left-color: var(--warning);">
+            <div>
+              <strong>发现新版本</strong>
+              <span id="updateBannerText"></span>
+            </div>
+            <div class="process-actions">
+              <button id="applyClientUpdateButton" class="button">
+                <i data-lucide="download-cloud" class="icon"></i>
+                在线更新
+              </button>
+            </div>
+          </div>
+
+          <div id="connectionBanner" class="connection-banner">
+            <div>
+              <strong id="connectionTitle">正在连接</strong>
+              <span id="connectionDetail">frpc 进程状态未知</span>
+            </div>
+            <!-- 0.10.1.2 规格5：统一 frpc 管理——启动/停止/重启作用于全部 frpc 进程 -->
+            <div class="process-actions">
+              <button id="startButton" class="button">
+                <i data-lucide="play" class="icon"></i>
+                启动
+              </button>
+              <button id="stopButton" class="button secondary">
+                <i data-lucide="square" class="icon"></i>
+                停止
+              </button>
+              <button id="restartButton" class="button secondary" title="重启全部 frpc 进程">
+                <i data-lucide="rotate-cw" class="icon"></i>
+                重启
+              </button>
+            </div>
+          </div>
+
+          <section class="dashboard-grid" aria-label="使用情况仪表盘">
+            <article class="gauge-card">
+              <div class="gauge">
+                <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
+                  <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
+                  <circle id="gaugePortsArc" class="gauge-arc" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <div class="gauge-center">
+                  <strong id="gaugePortsValue">-</strong>
+                  <span>已用端口</span>
+                </div>
+              </div>
+              <h3>端口使用</h3>
+              <p id="gaugePortsText">-</p>
+            </article>
+            <article class="gauge-card">
+              <div class="gauge">
+                <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
+                  <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
+                  <circle id="gaugeTrafficArc" class="gauge-arc" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <div class="gauge-center">
+                  <strong id="gaugeTrafficValue">-</strong>
+                  <span>流量已用</span>
+                </div>
+              </div>
+              <h3>流量使用</h3>
+              <p id="gaugeTrafficText">-</p>
+            </article>
+            <article class="gauge-card">
+              <div class="gauge">
+                <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
+                  <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
+                  <circle id="gaugeExpiryArc" class="gauge-arc" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <div class="gauge-center">
+                  <strong id="gaugeExpiryValue">-</strong>
+                  <span>剩余时长</span>
+                </div>
+              </div>
+              <h3>到期情况</h3>
+              <p id="gaugeExpiryText">-</p>
+            </article>
+          </section>
+
+          <div class="account-strip">
+            <!-- 0.10.1.1：登录后只读展示已绑定节点的全部节点及其对应端口；节点选择移到「端口映射」各节点块 -->
+            <div class="account-item account-node-item">
+              <span>授权节点</span>
+              <strong id="nodeNames" class="mono">-</strong>
+            </div>
+            <div class="account-item">
+              <span>授权端口</span>
+              <!-- 0.10.1.1：每条端口段标注所属节点 -->
+              <strong id="allowedPorts" class="mono">-</strong>
+            </div>
+            <div class="account-item">
+              <span>到期时间</span>
+              <strong id="expiresAt">-</strong>
+            </div>
+            <div class="account-item">
+              <span>剩余时间</span>
+              <strong id="timeRemaining">-</strong>
+            </div>
+          </div>
+
+          <!-- 0.10.1.1：可用节点 + 各节点可用端口（每节点一个卡片） -->
+          <div class="section-head">
+            <div>
+              <h2>可用节点与端口</h2>
+              <p id="nodePortsSummary">-</p>
+            </div>
+          </div>
+          <div id="nodePortsGrid" class="node-port-grid"></div>
+
+          <!-- 0.10.1.1：所有映射列表（仅显示开启中的隧道），点击行跳转「端口映射」并定位 -->
+          <div class="section-head">
+            <div>
+              <h2>映射列表</h2>
+              <p id="proxyCount">0 条映射</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="client-mapping-table">
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>协议</th>
+                  <th>本地服务</th>
+                  <th>访问方式</th>
+                  <th>实时流量</th>
+                  <th>所属节点</th>
+                </tr>
+              </thead>
+              <tbody id="dashboardProxyRows"></tbody>
+            </table>
+            <div id="proxyEmpty" class="empty hidden">暂无开启中的隧道，可在「端口映射」中添加</div>
+          </div>
+        </section>
