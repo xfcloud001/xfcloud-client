@@ -1,9 +1,22 @@
 # XFCloud Tunnel 客户端（xfcloud-client）
 
+![Version](https://img.shields.io/badge/version-0.10.2.9-brightgreen) ![License](https://img.shields.io/badge/license-AGPL--3.0-blue) ![Node.js](https://img.shields.io/badge/Node.js-22.5%2B-green) ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS%20%7C%20fnOS-lightgrey) ![官网](https://img.shields.io/badge/%E5%AE%98%E7%BD%91-www.xfhub.top-orange?link=https%3A%2F%2Fwww.xfhub.top)
+
 连接 [XFCloud Tunnel 服务端](https://github.com/xfcloud001/xfcloud-server) 即可为内网服务建立 frp 隧道：Web 控制台可视化编辑端口映射，登录即用；本地状态 AES-256-GCM 加密落盘；未登录时也可作为自定义 frpc 启动器使用。
 
 - 服务端仓库：[xfcloud-server](https://github.com/xfcloud001/xfcloud-server)
-- 官网 / 教程 / 飞牛 fpk 下载：<https://www.xfhub.top>
+- 官网（产品介绍 / 图文教程 / 飞牛 fpk 下载）：**<https://www.xfhub.top>**
+- 图文部署教程：**<https://www.xfhub.top/tutorial>**
+
+## 界面预览
+
+| 登录与连接 | 端口映射 |
+| --- | --- |
+| ![登录与连接](docs/images/client-login.png) | ![端口映射](docs/images/client-mappings.png) |
+| **运行日志** | **设置中心** |
+| ![运行日志](docs/images/client-logs.png) | ![设置中心](docs/images/client-settings.png) |
+
+> 更多截图与在线演示说明见官网：<https://www.xfhub.top>
 
 ## 功能特性
 
@@ -32,6 +45,8 @@ npm start            # 等价于 node --experimental-sqlite client/app.js
 
 frpc 二进制可在控制台一键安装，也可通过环境变量 `FRPC_BIN` 指定本地路径；显式指定的路径不会被自动更新覆盖。
 
+> Windows / 飞牛 NAS 用户推荐直接下载 fpk 安装包：**<https://www.xfhub.top>**（应用中心一键安装，内置 Node.js 22 与 frp 内核）
+
 ### 端口与地址
 
 | 来源 | 说明 |
@@ -43,6 +58,10 @@ frpc 二进制可在控制台一键安装，也可通过环境变量 `FRPC_BIN` 
 ## 飞牛 fnOS 用户
 
 服务端与客户端均提供飞牛 fnOS 原生 fpk 应用包（内置 Node.js 22 与 frp 内核），飞牛应用中心手动安装即用，数据持久化、升级不丢失 —— 见官网 <https://www.xfhub.top>。
+
+## 关键词 / Keywords
+
+内网穿透 · frp 客户端 · frpc 图形界面 · NAT 穿透 · 端口映射 · 端口转发 · 隧道 · 远程访问 · NAS 远程 · 飞牛 fnOS · fpk 应用 · frpc 可视化 · 内网服务暴露 · 自建隧道 · intranet penetration · nat traversal · frp client gui · port forwarding · remote access · tunnel client
 
 ## License
 
